@@ -58,7 +58,7 @@ public class PostalCodeController {
                    //instanciating a new PostalCode
                    PostalCode p = new PostalCode();
                    //assigning values from the array to the PostalCode
-                   p.setId(nextLine[0]);
+                   p.setId(Integer.parseInt(nextLine[0]));
                    p.setCountry(nextLine[1]);
                    p.setPostalCode(nextLine[2]);
                    

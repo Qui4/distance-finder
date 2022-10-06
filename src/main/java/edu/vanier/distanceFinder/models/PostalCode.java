@@ -14,7 +14,7 @@ public class PostalCode {
     /**
      * Setting up the classes variables
      */
-    private String id;
+    private int id;
     private String country;
     private String postalCode;
     private String province;
@@ -24,14 +24,14 @@ public class PostalCode {
      * Retrieves the id of a object
      * @return  id  
      */
-    public String getId() {
+    public int getId() {
         return this.id;
     }
     /**
      * Sets the id to a specified value
      * @param id specifies the id of the object
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     /**
