@@ -102,6 +102,7 @@ public class PostalCodeController {
      * @return 
      */
     public double distanceTo(String from, String to){
+        System.out.println("lol");
         return 0.0;
     }
     
