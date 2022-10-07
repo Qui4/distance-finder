@@ -6,6 +6,10 @@
 package edu.vanier.distanceFinder.tests;
 
 import edu.vanier.distanceFinder.controllers.PostalCodeController;
+import edu.vanier.distanceFinder.models.PostalCode;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  *
@@ -13,17 +17,46 @@ import edu.vanier.distanceFinder.controllers.PostalCodeController;
  */
 public class Driver {
     
-    public static void main(String[] args) {
-            testParse();
+    
+    public static void main(String[] args) throws IOException {
+        
+        PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv");  
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("distanceTo ");
+        
+        
+        
+        //String fromKey = sc.nextLine(); 
+        testDistanceTo("h7h");
+        
+
+
+        
+        
         
     }
     
-    public static void testParse(){
-        PostalCodeController pcc = new PostalCodeController("src\\main\\resources\\zipcodes.csv");
+    public static PostalCodeController testParse(String filepath){
+        PostalCodeController pcc = new PostalCodeController(filepath);
         pcc.parse();
+        System.out.println(pcc.getPostalCodes());
+        
+        return pcc;
     }
     
-    public static void testDistamceTo(String from){
+    public static void testDistanceTo(String fromKey){
+        
+        PostalCodeController pcc = new PostalCodeController("src\\main\\resources\\zipcodes.csv");
+        pcc.parse();
+        
+        HashMap<String, PostalCode> postalCodes = pcc.getPostalCodes();
+        
+        Scanner sc = new Scanner(System.in); 
+        String toKey = "X0A";
+        
+        System.out.println(pcc.distanceTo(fromKey.strip().toUpperCase(), toKey));
+        
+        
         
     }
     

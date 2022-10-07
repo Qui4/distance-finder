@@ -82,7 +82,7 @@ public class PostalCodeController {
                    this.postalCodes.put(p.getPostalCode(),p);
                }
                //printing the hashmap(for verif)
-               System.out.println( this.postalCodes);
+               //System.out.println( this.postalCodes);
            } catch (IOException ex) {
                Logger.getLogger(PostalCodeController.class.getName()).log(Level.SEVERE, null, ex);
              } 
@@ -101,14 +101,44 @@ public class PostalCodeController {
      * @param to
      * @return 
      */
-    public double distanceTo(String from, String to){
-        System.out.println("lol");
-        return 0.0;
+    public double distanceTo(String fromKey, String toKey){
+        
+        PostalCode from = postalCodes.get(fromKey);
+        PostalCode to = postalCodes.get(toKey);
+        
+        double lonFrom = Double.parseDouble(from.getLongitude().strip().toUpperCase());
+        double lonTo = Double.parseDouble(to.getLongitude().strip().toUpperCase());
+        double latFrom = Double.parseDouble(from.getLatitude().strip().toUpperCase());
+        double latTo = Double.parseDouble(to.getLatitude().strip().toUpperCase());
+        
+        
+      // distance between latitudes and longitudes
+        double dLat = Math.toRadians(latTo - latFrom);
+        double dLon = Math.toRadians(lonTo - lonFrom);
+ 
+        // convert to radians
+        latFrom = Math.toRadians(latFrom);
+        latTo = Math.toRadians(latTo);
+ 
+        // apply formulae
+        double a = Math.pow(Math.sin(dLat / 2), 2) +
+                   Math.pow(Math.sin(dLon / 2), 2) *
+                   Math.cos(latFrom) *
+                   Math.cos(latTo);
+        double rad = 6371;
+        double c = 2 * Math.asin(Math.sqrt(a));
+        return rad * c;
     }
     
     public HashMap<String,PostalCode> nearbyLocations(String from){
         return null;
     }
+
+    public HashMap<String, PostalCode> getPostalCodes() {
+        return this.postalCodes;
+    }
+    
+    
     
     
     
