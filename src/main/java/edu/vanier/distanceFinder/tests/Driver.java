@@ -21,7 +21,7 @@ public class Driver {
     public static void main(String[] args) throws IOException {
         
         PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv");  
-        Scanner sc = new Scanner(System.in); 
+        Scanner sc = new Scanner(System.in);
         System.out.println("distanceTo ");
         
         
@@ -39,8 +39,8 @@ public class Driver {
     public static PostalCodeController testParse(String filepath){
         PostalCodeController pcc = new PostalCodeController(filepath);
         pcc.parse();
-        System.out.println(pcc.getPostalCodes());
-        
+        System.out.println(pcc.getPostalCodes().get("H7H"));
+        System.out.println(pcc.getPostalCodes().get("N7L"));
         return pcc;
     }
     

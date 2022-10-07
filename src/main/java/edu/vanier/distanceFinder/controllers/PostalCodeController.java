@@ -64,19 +64,19 @@ public class PostalCodeController {
                    
                    //for cases where the line contains 8 items
                    if (nextLine.length==8){
-                        p.setLongitude(nextLine[6]);
-                        p.setLatitude(nextLine[7]); 
+                        p.setLatitude(nextLine[6]);
+                        p.setLongitude(nextLine[7]); 
                    }
                    //for cases where the line contains 9 items
                    else if(nextLine.length==9){
-                       p.setLongitude(nextLine[7]);
-                       p.setLatitude(nextLine[8]);
+                       p.setLatitude(nextLine[7]);
+                       p.setLongitude(nextLine[8]);
                    }
                    //default case
                    else{
                        p.setProvince(nextLine[4]);
-                       p.setLongitude(nextLine[5]);
-                       p.setLatitude(nextLine[6]);    
+                       p.setLatitude(nextLine[5]);
+                       p.setLongitude(nextLine[6]);    
                    }
                    //adding the Postalcode to the hashmap
                    this.postalCodes.put(p.getPostalCode(),p);
@@ -120,13 +120,12 @@ public class PostalCodeController {
         latFrom = Math.toRadians(latFrom);
         latTo = Math.toRadians(latTo);
  
-        // apply formulae
+        // apply formula
         double a = Math.pow(Math.sin(dLat / 2), 2) +
-                   Math.pow(Math.sin(dLon / 2), 2) *
-                   Math.cos(latFrom) *
-                   Math.cos(latTo);
+                   Math.cos(latFrom) *Math.cos(latTo)*
+                   Math.pow(Math.sin(dLon / 2), 2) ;
         double rad = 6371;
-        double c = 2 * Math.asin(Math.sqrt(a));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));;
         return rad * c;
     }
     

@@ -4,7 +4,7 @@ edu/vanier/distanceFinder/Main.java
  edu.vanier.distanceFinder.Main
 edu/vanier/distanceFinder/models/PostalCode.java
  edu.vanier.distanceFinder.models.PostalCode
-edu/vanier/distanceFinder/tests/Driver.java
- edu.vanier.distanceFinder.tests.Driver
 edu/vanier/distanceFinder/controllers/PostalCodeController.java
  edu.vanier.distanceFinder.controllers.PostalCodeController
+edu/vanier/distanceFinder/tests/Driver.java
+ edu.vanier.distanceFinder.tests.Driver
