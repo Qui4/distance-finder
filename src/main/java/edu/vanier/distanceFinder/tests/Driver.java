@@ -27,7 +27,7 @@ public class Driver {
         
         
         //String fromKey = sc.nextLine(); 
-        testDistanceTo("h7h");
+        testDistanceTo("h4h");
         
 
 
