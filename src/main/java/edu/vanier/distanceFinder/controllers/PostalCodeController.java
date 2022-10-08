@@ -12,6 +12,7 @@ import edu.vanier.distanceFinder.models.PostalCode;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,7 +131,13 @@ public class PostalCodeController {
     }
     
     public HashMap<String,PostalCode> nearbyLocations(String from){
-        return null;
+        HashMap<String,PostalCode> pCodeHolder = new HashMap<String,PostalCode>();
+        postalCodes.forEach((key, pCode) -> {
+         if(distanceTo(from,key)<100.00){
+            pCodeHolder.put(key, pCode);
+         }
+        });
+        return pCodeHolder;
     }
 
     public HashMap<String, PostalCode> getPostalCodes() {

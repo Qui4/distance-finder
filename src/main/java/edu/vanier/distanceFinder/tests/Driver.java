@@ -16,18 +16,23 @@ import java.util.Scanner;
  * @author Mervin
  */
 public class Driver {
-    
+static PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv");     
     
     public static void main(String[] args) throws IOException {
         
-        PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv");  
+        /*PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv");  
         Scanner sc = new Scanner(System.in);
         System.out.println("distanceTo ");
         
         
         
         //String fromKey = sc.nextLine(); 
-        testDistanceTo("h4h");
+        testDistanceTo("h4h");*/
+        testDistanceTo("H7H");
+        
+        System.out.println("Nearby loc\n");
+        testNearbyLocations("H7H");
+        
         
 
 
@@ -40,7 +45,7 @@ public class Driver {
         PostalCodeController pcc = new PostalCodeController(filepath);
         pcc.parse();
         System.out.println(pcc.getPostalCodes().get("H7H"));
-        System.out.println(pcc.getPostalCodes().get("N7L"));
+        System.out.println(pcc.getPostalCodes().get("H7J"));
         return pcc;
     }
     
@@ -52,15 +57,15 @@ public class Driver {
         HashMap<String, PostalCode> postalCodes = pcc.getPostalCodes();
         
         Scanner sc = new Scanner(System.in); 
-        String toKey = "X0A";
+        String toKey = "k4b";
         
-        System.out.println(pcc.distanceTo(fromKey.strip().toUpperCase(), toKey));
+        System.out.println(pcc.distanceTo(fromKey.strip().toUpperCase(), toKey.strip().toUpperCase()));
         
         
         
     }
     
     public static void testNearbyLocations(String from){
-        
+        System.out.println(pcc.nearbyLocations(from));
     }
 }
