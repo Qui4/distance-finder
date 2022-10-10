@@ -6,11 +6,16 @@
 package edu.vanier.distanceFinder.ui;
 import edu.vanier.distanceFinder.controllers.PostalCodeController;
 import edu.vanier.distanceFinder.models.PostalCode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import static javafx.geometry.Pos.CENTER;
@@ -36,7 +41,7 @@ public class MainApp extends Application{
     public String fromPostalCode;
     public double range;
     PostalCodeController pcc = new PostalCodeController("src\\main\\resources\\zipcodes.csv");
-    
+ 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -123,35 +128,70 @@ public class MainApp extends Application{
     }
     
     public void showTable(){
-               TableView tableView = new TableView();
-               String TableColumn;
+        TableView<PostalCode> tableView = new TableView<>();
+        //Id Column
+        TableColumn<PostalCode, String> idColumn= new TableColumn<>("Id");
+        idColumn.setMinWidth(200);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         
-               TableColumn<Map, String> firstNameColumn = new TableColumn<>("firstName");
-                firstNameColumn.setCellValueFactory(new MapValueFactory<>("firstName"));
+        //country Column
+        TableColumn<PostalCode, String> countryColumn= new TableColumn<>("Country");
+        countryColumn.setMinWidth(200);
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        
+        //postalCode Column
+        TableColumn<PostalCode, String> postalCodeColumn= new TableColumn<>("Postal Code");
+        postalCodeColumn.setMinWidth(200);
+        postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        
+        //province Column
+        TableColumn<PostalCode, String> provinceColumn= new TableColumn<>("Province");
+        provinceColumn.setMinWidth(200);
+        provinceColumn.setCellValueFactory(new PropertyValueFactory<>("province"));
+        
+        //Id Column
+        TableColumn<PostalCode, String> latitudeColumn= new TableColumn<>("Latitude");
+        latitudeColumn.setMinWidth(200);
+        latitudeColumn.setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        
+        //Id Column
+        TableColumn<PostalCode, String> longitudeColumn= new TableColumn<>("Longitude");
+        longitudeColumn.setMinWidth(200);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("longitude"));
 
-                TableColumn<Map, String> lastNameColumn = new TableColumn<>("lastName");
-                lastNameColumn.setCellValueFactory(new MapValueFactory<>("lastName"));
-
-                tableView.getColumns().add(firstNameColumn);
-                tableView.getColumns().add(lastNameColumn);
-
+        
+        tableView.setItems(getNearbyLocations());
+        tableView.getColumns().addAll(idColumn,postalCodeColumn,countryColumn,provinceColumn,latitudeColumn,longitudeColumn);
+        
+        Alert dialog = new Alert(Alert.AlertType.INFORMATION); 
+        dialog.setTitle("Computation");
+        dialog.setHeaderText("Following the calculations. Here is your answer !");
+        dialog.getDialogPane().setContent(tableView);        
+        dialog.show();
                
-               HashMap<String,PostalCode> nearbyPCodes = pcc.nearbyLocations(fromPostalCode, range);
-               if(nearbyPCodes== null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ALERT");
-                alert.setHeaderText("Invalid Input!");
-                alert.setResizable(false);
-                alert.setContentText("Returning to main menu");
-                alert.showAndWait();
+    }
+    
+    public ObservableList<PostalCode> getNearbyLocations(){
+        ObservableList<PostalCode> nearbyLocations = FXCollections.observableArrayList();
+        
+        HashMap<String,PostalCode> nearbyPCodesHolder = pcc.nearbyLocations(fromPostalCode, range);
+        
+        if(nearbyPCodesHolder== null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ALERT");
+            alert.setHeaderText("Invalid Input!");
+            alert.setResizable(false);
+            alert.setContentText("Returning to main menu");
+            alert.showAndWait();
 
-               }else{
-                   
-               }
-               Stage stage = new Stage();
-               Scene scene2 = new Scene(tableView,300,300 );
-               stage.setScene(scene2);
-               stage.show();
+        }else{
+            for( HashMap.Entry<String,PostalCode> m:nearbyPCodesHolder.entrySet()){
+                nearbyLocations.add(m.getValue());
+                
+            }
+           // System.out.println(nearbyLocations);
+        }
+        return nearbyLocations;
                
     }
     

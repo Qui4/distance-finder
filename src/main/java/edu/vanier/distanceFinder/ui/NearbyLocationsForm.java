@@ -56,7 +56,7 @@ public class NearbyLocationsForm extends Stage{
         Scene scene = new Scene(grid, 300, 275);
         mainWindow.setScene(scene);
         
-        Text scenetitle = new Text("Enter a sets of 3 Characters (First 3 Digits of A Canadian Postal Code)");
+        Text scenetitle = new Text("Enter a sets of 3 Characters (First 3 Digits of A Canadian Postal Code)\n and the range (radius in km)");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -66,7 +66,7 @@ public class NearbyLocationsForm extends Stage{
         TextField postalCodeInputTextField = new TextField();
         grid.add(postalCodeInputTextField, 1, 1);
         
-        Label rangeLabel = new Label("Second set:");
+        Label rangeLabel = new Label("Range set:");
         grid.add(rangeLabel, 0, 2);
 
         TextField rangeTextField = new TextField();

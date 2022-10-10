@@ -67,11 +67,11 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\distanceFinder.jar;%APP_HOME%\lib\opencsv-5.7.0.jar;%APP_HOME%\lib\commons-text-1.9.jar;%APP_HOME%\lib\commons-lang3-3.12.0.jar;%APP_HOME%\lib\commons-beanutils-1.9.4.jar;%APP_HOME%\lib\commons-collections4-4.4.jar;%APP_HOME%\lib\commons-logging-1.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar
+set CLASSPATH=%APP_HOME%\lib\distanceFinder.jar;%APP_HOME%\lib\javafx-fxml-18.0.2-win.jar;%APP_HOME%\lib\javafx-controls-18.0.2-win.jar;%APP_HOME%\lib\javafx-controls-18.0.2.jar;%APP_HOME%\lib\javafx-media-18.0.2-win.jar;%APP_HOME%\lib\javafx-graphics-18.0.2-win.jar;%APP_HOME%\lib\javafx-graphics-18.0.2.jar;%APP_HOME%\lib\javafx-base-18.0.2-win.jar;%APP_HOME%\lib\javafx-base-18.0.2.jar;%APP_HOME%\lib\opencsv-5.7.0.jar;%APP_HOME%\lib\commons-text-1.9.jar;%APP_HOME%\lib\commons-lang3-3.12.0.jar;%APP_HOME%\lib\commons-beanutils-1.9.4.jar;%APP_HOME%\lib\commons-collections4-4.4.jar;%APP_HOME%\lib\commons-logging-1.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar
 
 
 @rem Execute distanceFinder
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DISTANCE_FINDER_OPTS%  -classpath "%CLASSPATH%" edu.vanier.distanceFinder.Main %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DISTANCE_FINDER_OPTS%  -classpath "%CLASSPATH%" edu.vanier.distanceFinder.ui.MainApp %*
 
 :end
 @rem End local scope for the variables with windows NT shell
