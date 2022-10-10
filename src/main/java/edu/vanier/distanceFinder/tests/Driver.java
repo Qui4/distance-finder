@@ -28,10 +28,10 @@ static PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv"
         
         //String fromKey = sc.nextLine(); 
         testDistanceTo("h4h");*/
-        testDistanceTo("H7H");
+        testDistanceTo("T0M");
         
         System.out.println("Nearby loc\n");
-        testNearbyLocations("H7H");
+        testNearbyLocations("T0M");
         
         
 
@@ -44,8 +44,8 @@ static PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv"
     public static PostalCodeController testParse(String filepath){
         PostalCodeController pcc = new PostalCodeController(filepath);
         pcc.parse();
-        System.out.println(pcc.getPostalCodes().get("H7H"));
-        System.out.println(pcc.getPostalCodes().get("H7J"));
+        System.out.println(pcc.getPostalCodes().get("T0M"));
+        System.out.println(pcc.getPostalCodes().get("T1G"));
         return pcc;
     }
     
@@ -57,7 +57,7 @@ static PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv"
         HashMap<String, PostalCode> postalCodes = pcc.getPostalCodes();
         
         Scanner sc = new Scanner(System.in); 
-        String toKey = "k4b";
+        String toKey = "T1G";
         
         System.out.println(pcc.distanceTo(fromKey.strip().toUpperCase(), toKey.strip().toUpperCase()));
         
@@ -66,6 +66,6 @@ static PostalCodeController pcc = testParse("src\\main\\resources\\zipcodes.csv"
     }
     
     public static void testNearbyLocations(String from){
-        System.out.println(pcc.nearbyLocations(from));
+        System.out.println(pcc.nearbyLocations(from, 100));
     }
 }

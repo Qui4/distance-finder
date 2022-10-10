@@ -103,46 +103,63 @@ public class PostalCodeController {
      * @return 
      */
     public double distanceTo(String fromKey, String toKey){
-        
         PostalCode from = postalCodes.get(fromKey);
         PostalCode to = postalCodes.get(toKey);
+        if(from==null||to==null){
+            return -1;  
+        }
+        else{
+            double lonFrom = Double.parseDouble(from.getLongitude().strip().toUpperCase());
+            double lonTo = Double.parseDouble(to.getLongitude().strip().toUpperCase());
+            double latFrom = Double.parseDouble(from.getLatitude().strip().toUpperCase());
+            double latTo = Double.parseDouble(to.getLatitude().strip().toUpperCase());
+
+
+            // distance between latitudes and longitudes
+            double dLat = Math.toRadians(latTo - latFrom);
+            double dLon = Math.toRadians(lonTo - lonFrom);
+
+            // convert to radians
+            latFrom = Math.toRadians(latFrom);
+            latTo = Math.toRadians(latTo);
+
+            // apply formula
+            double a = Math.pow(Math.sin(dLat / 2), 2) +
+                       Math.cos(latFrom) *Math.cos(latTo)*
+                       Math.pow(Math.sin(dLon / 2), 2) ;
+            double rad = 6371;
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));;
+            return rad * c;    
+        }
+
         
-        double lonFrom = Double.parseDouble(from.getLongitude().strip().toUpperCase());
-        double lonTo = Double.parseDouble(to.getLongitude().strip().toUpperCase());
-        double latFrom = Double.parseDouble(from.getLatitude().strip().toUpperCase());
-        double latTo = Double.parseDouble(to.getLatitude().strip().toUpperCase());
-        
-        
-      // distance between latitudes and longitudes
-        double dLat = Math.toRadians(latTo - latFrom);
-        double dLon = Math.toRadians(lonTo - lonFrom);
- 
-        // convert to radians
-        latFrom = Math.toRadians(latFrom);
-        latTo = Math.toRadians(latTo);
- 
-        // apply formula
-        double a = Math.pow(Math.sin(dLat / 2), 2) +
-                   Math.cos(latFrom) *Math.cos(latTo)*
-                   Math.pow(Math.sin(dLon / 2), 2) ;
-        double rad = 6371;
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));;
-        return rad * c;
+
     }
     
-    public HashMap<String,PostalCode> nearbyLocations(String from){
-        HashMap<String,PostalCode> pCodeHolder = new HashMap<String,PostalCode>();
-        postalCodes.forEach((key, pCode) -> {
-         if(distanceTo(from,key)<100.00){
-            pCodeHolder.put(key, pCode);
-         }
-        });
-        return pCodeHolder;
+    public HashMap<String,PostalCode> nearbyLocations(String from, double range){
+        if(postalCodes.get(from)==null){
+        return null;    
+        }else{
+            HashMap<String,PostalCode> pCodeHolder = new HashMap<String,PostalCode>();
+            postalCodes.forEach((key, pCode) -> {
+             if(distanceTo(from,key)<range){
+                pCodeHolder.put(key, pCode);
+             }
+            }); 
+            return pCodeHolder;
+        }
+        
+        
     }
 
     public HashMap<String, PostalCode> getPostalCodes() {
         return this.postalCodes;
     }
+
+    public void setPostalCodes(HashMap<String, PostalCode> postalCodes) {
+        this.postalCodes = postalCodes;
+    }
+    
     
     
     
