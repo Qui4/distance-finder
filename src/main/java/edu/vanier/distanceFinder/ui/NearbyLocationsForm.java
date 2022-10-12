@@ -53,10 +53,10 @@ public class NearbyLocationsForm extends Stage{
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 700, 400);
         mainWindow.setScene(scene);
         
-        Text scenetitle = new Text("Enter a sets of 3 Characters (First 3 Digits of A Canadian Postal Code)\n and the range (radius in km)");
+        Text scenetitle = new Text("Enter a set of 3 Characters (First 3 Digits of A Canadian Postal Code)\n              and the range (radius in km)");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -86,13 +86,20 @@ public class NearbyLocationsForm extends Stage{
  
             @Override
            public void handle(ActionEvent e) {
-               
+               try{
                fromPostalCode = postalCodeInputTextField.getText().strip().toUpperCase();
                range = Double.parseDouble(rangeTextField.getText().strip().toUpperCase());
-       
-
-               mainWindow.hide();
-                
+               }
+               catch(NullPointerException|NumberFormatException ex){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ALERT");
+                    alert.setHeaderText("Invalid Input!");
+                    alert.setResizable(false);
+                    alert.setContentText("Returning to main menu");
+                    alert.showAndWait();
+                    
+                }
+               mainWindow.hide();  
             }
         });
         
@@ -113,7 +120,12 @@ public class NearbyLocationsForm extends Stage{
 
 
     public Double getRange() {
-        return range;
+        if (this.range==null){
+            return -1.;
+        }else{
+            return range;    
+        }
+        
     }
     
     
