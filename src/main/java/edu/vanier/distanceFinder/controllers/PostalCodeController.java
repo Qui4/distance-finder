@@ -97,10 +97,10 @@ public class PostalCodeController {
     }
     
     /**
-     * 
-     * @param from
-     * @param to
-     * @return 
+     * Uses the haversine formula to calculate the distance between two postalCodes 
+     * @param fromKey postal code from which distance is calculated
+     * @param toKey postal code to which distance is calculated
+     * @return a double value representing the distance between both locations
      */
     public double distanceTo(String fromKey, String toKey){
         PostalCode from = postalCodes.get(fromKey);
@@ -136,13 +136,19 @@ public class PostalCodeController {
 
     }
     
+    /**
+     * looks for postal codes that are within a user defined range and adds them into a HashMaps
+     * @param from postal code from which nearby locations 
+     * @param range user defined range which will be the upper limit to the computation
+     * @return a HashMap of nearby locations
+     */
     public HashMap<String,PostalCode> nearbyLocations(String from, double range){
         if(postalCodes.get(from)==null){
         return null;    
         }else{
             HashMap<String,PostalCode> pCodeHolder = new HashMap<String,PostalCode>();
             postalCodes.forEach((key, pCode) -> {
-             if(distanceTo(from,key)<range){
+             if(distanceTo(from,key)<=range){
                 pCodeHolder.put(key, pCode);
              }
             }); 
@@ -152,10 +158,18 @@ public class PostalCodeController {
         
     }
 
+    /**
+     *getter 
+     * @return the HashMap of postal codes
+     */
     public HashMap<String, PostalCode> getPostalCodes() {
         return this.postalCodes;
     }
 
+    /**
+     *setter
+     * @param postalCodes list of postal codes 
+     */
     public void setPostalCodes(HashMap<String, PostalCode> postalCodes) {
         this.postalCodes = postalCodes;
     }

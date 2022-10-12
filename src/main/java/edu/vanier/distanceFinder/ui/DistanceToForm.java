@@ -28,11 +28,15 @@ import javafx.stage.Stage;
  *
  * @author Mervin
  */
-public class PostalCodeForm extends Stage{
+public class DistanceToForm extends Stage{
     private PostalCode fromPostalCode;
     private PostalCode toPostalCode;
     
-    public PostalCodeForm(Stage mainWindow) {
+    /**
+     * constructor
+     * @param mainWindow stage of the main class
+     */
+    public DistanceToForm(Stage mainWindow) {
         this.initModality(Modality.WINDOW_MODAL);
         this.initOwner(mainWindow);
         
@@ -40,6 +44,10 @@ public class PostalCodeForm extends Stage{
           
     }
     
+    /**
+     * Generates the ui for the Postal Code distance to form
+     * @param mainWindow stage of the main class
+     */
     public void windowProperties(Stage mainWindow){
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -95,10 +103,18 @@ public class PostalCodeForm extends Stage{
         this.setTitle("Postal Code Form");
     }
 
+    /**
+     * getter
+     * @return user inputted postal code
+     */
     public PostalCode getFromPostalCode() {
         return this.fromPostalCode;
     }
 
+    /**
+     * getter 
+     * @return user inputted postal code 
+     */
     public PostalCode getToPostalCode() {
         return this.toPostalCode;
     }

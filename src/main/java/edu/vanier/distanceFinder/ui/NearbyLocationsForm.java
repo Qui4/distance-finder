@@ -38,7 +38,12 @@ public class NearbyLocationsForm extends Stage{
     String fromPostalCode;
     Double range;
     
-     public NearbyLocationsForm(Stage mainWindow, PostalCodeController pcc) {
+    /**
+     * constructor
+     * @param mainWindow stage from the main app
+     * @param pcc postal code controller from the main app
+     */
+    public NearbyLocationsForm(Stage mainWindow, PostalCodeController pcc) {
         this.initModality(Modality.WINDOW_MODAL);
         this.initOwner(mainWindow);
         this.pcc = pcc;
@@ -114,11 +119,18 @@ public class NearbyLocationsForm extends Stage{
 
     }
 
+    /**
+     * getter
+     * @return user inputted postal code
+     */
     public String getFromPostalCode() {
         return fromPostalCode;
     }
 
-
+    /**
+     *
+     * @return the user inputted range 
+     */
     public Double getRange() {
         if (this.range==null){
             return -1.;

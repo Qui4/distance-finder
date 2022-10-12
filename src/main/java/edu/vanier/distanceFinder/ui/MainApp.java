@@ -30,12 +30,10 @@ import javafx.stage.Stage;
  * @author Mervin
  */
 public class MainApp extends Application {
-
     public String fromPC;
     public String toPC;
     public String fromPostalCode;
     public double range;
-   
     PostalCodeController pcc = new PostalCodeController("src\\main\\resources\\zipcodes.csv");
 
     @Override
@@ -53,7 +51,7 @@ public class MainApp extends Application {
         btnOpenDistanceTo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                PostalCodeForm pcf = new PostalCodeForm(primaryStage);
+                DistanceToForm pcf = new DistanceToForm(primaryStage);
                 pcf.showAndWait();
 
                 fromPC = pcf.getFromPostalCode().getPostalCode();
@@ -118,15 +116,24 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
+    /**
+     * shows the distance from a point to another with an information box
+     * @param distance
+     * @param fromPC
+     * @param toPC
+     */
     public static void showConfirmation(double distance, String fromPC, String toPC) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Box");
+        alert.setTitle("Distance Between");
         alert.setHeaderText("Distance Has Been Calculated Successfuly!");
         alert.setResizable(false);
         alert.setContentText("Distance between " + fromPC + ", and " + toPC + " is: " + distance + " KM.");
         alert.showAndWait();
     }
 
+    /**
+     * creates an alert box
+     */
     public static void showError() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ALERT");
@@ -136,6 +143,9 @@ public class MainApp extends Application {
         alert.showAndWait();
     }
 
+    /**
+     * displays a table of nearby locations 
+     */
     public void showTable() {
         TableView<PostalCode> tableView = new TableView<>();
         //Id Column
@@ -179,22 +189,16 @@ public class MainApp extends Application {
 
     }
 
+    /**
+     * turns the HashMap of nearby locations into a list 
+     * @return an observable list
+     */
     public ObservableList<PostalCode> getNearbyLocations() {
         ObservableList<PostalCode> nearbyLocations = FXCollections.observableArrayList();
 
         HashMap<String, PostalCode> nearbyPCodesHolder = pcc.nearbyLocations(fromPostalCode, range);
-//        if (nearbyPCodesHolder == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("ALERT");
-//            alert.setHeaderText("Invalid Input!");
-//            alert.setResizable(false);
-//            alert.setContentText("Returning to main menu");
-//            alert.showAndWait();
-//
-//        } else {
             for (HashMap.Entry<String, PostalCode> m : nearbyPCodesHolder.entrySet()) {
                 nearbyLocations.add(m.getValue());
-            //}
         }
         return nearbyLocations;
     }
